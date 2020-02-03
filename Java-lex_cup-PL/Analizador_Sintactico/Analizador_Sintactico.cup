@@ -1,0 +1,246 @@
+//codigo de usuario
+package Practica_Obligatoria;
+import java_cup.runtime.*;
+import java.util.LinkedList;
+
+//parser code
+parser code {:
+    //conexion de parser y scanner
+    LinkedList<ErrorClass> error;
+    LinkedList<String> cons;
+    scanner s;
+    Parser(scanner s){ this.s=s; }
+
+    //metodos de gestion de errores sintacticos
+    public void syntax_error(Symbol s){
+        ErrorClass e;
+        String lex = s.value.toString();
+        int line = s.right;
+        int column = s.left;
+        e = new ErrorClass(lex,line,column,"Error Sintactico!","Caracter no esperado!");
+        System.out.print("Error Sintactico! linea "+line+" columna "+column);
+        System.out.println(": "+lex);
+        error.add(e);
+    }
+
+    public void unrecovered_suntax_error(Symbol s){
+        ErrorClass e;
+        String lex = s.value.toString();
+        int line = s.right;
+        int column = s.left;
+        e = new ErrorClass(lex,line,column,"Error Sintactico!","Caracter no esperado!");
+        System.out.print("Error Sintactico.. Modo Panico! linea "+line+" columna "+column);
+        System.out.println(": "+lex);
+        error.add(e);
+    }
+:}
+
+//codigo de accion
+action code{:
+
+:}
+
+/*int!*/
+init with {: 
+    s.init(); 
+    error = new LinkedList<>();
+    cons = new LinkedList<>();
+:};
+//lectura
+scan with {: return s.next_token(); :};
+
+/* Simbolos terminales */
+//programa y/o libreria
+terminal String PROG, LIBRARY, LIBCALL;
+
+//simbolos generales
+terminal String L_PAR,R_PAR;//parentesis
+terminal String L_KEY,R_KEY;//llaves
+terminal String numeric_integer_const,numeric_real_const,string_const; //valores simples
+terminal String COMA,PCOMA, PUNTO2;
+
+//operadores
+terminal String SUMA,RESTA,PRODUCTO,DIVISION,MODULO; //aritmeticos
+terminal String NOT,AND,OR;// logicos
+terminal String IGUAL_QUE,MAYOR,MENOR,MAYOR_IGUAL,MENOR_IGUAL// de comparacion
+terminal String ID,IGUAL;//asignacion
+
+//controles
+terminal String IF,THEN,ELSE;
+terminal String WHILE,DO;
+terminal String REPEAT,UNTIL;
+terminal String FOR,TO,DOWNTO;
+terminal String TRUE,FALSE;
+
+//funciones y procedimientos: VOID y FUNCT
+terminal String VOID;
+terminal String FUNC, RETURN;
+//constantes y variables
+terminal String CONST, VAR;
+
+//vacio
+terminal String LAMBDA;
+
+/*Simbolos no terminales */
+non terminal PRG;
+non terminal BLQ;
+non terminal DCLLIST, DCL;
+non terminal SENTLIST, SENT;
+non terminal DEFCTE, DEFVAR, DEFPROC, DEFFUN;
+non terminal CTELIST, SIMPVALUE;
+non terminal DEFVARLIST, VARLIST, TBAS;
+non terminal FORMAL_PARAMLISST, FORMALPARAM;
+non terminal SUBPARAMLIST;
+non terminal ASIG, PROC_CALL,
+non terminal EXPCOND, EXPLIST, EXP, INC;
+non terminal FACTORCOND, FACTOR;
+non terminal OPARIT, OPLOG, OPCOMP;
+
+
+/* Precedencia */
+precedence left LKEY, RKEY;
+precedence WHILE, DO;
+precedence REPEAT, UNTIL;
+precedence left IF, THEN, ELSE;
+precedence left LPAR, RPAR;
+precedence left PRODUCTO,DIVISION,MODULO;
+precedence left SUMA,RESTA;
+precedence MENOR, IGUAL_QUE, MAYOR, MENOR_IGUAL, MAYOR_IGUAL;
+precedence left NOT, AND, OR;
+precedence left LKEY, RKEY, END;
+
+start with PRG;
+
+/*Reglas*/
+//programa
+PRG ::= PROG ID PCOMA MAIN		            {: 	
+												String aux =b+END;
+												String s="\n#include <stdio.h>\n";
+												for(String c: cons) s.concat(c);
+												RESULT=s+aux; 
+											:}
+    | "UNIT" ID PCOMA DCLLIST:dl END        {: 	
+												String aux = ID+"\n"+dl;
+												String s="\n#include <stdio.h>\n";
+												for(String c: cons) s.concat(c);
+												RESULT="//Libreria: "+aux; 
+											:}
+
+BLQ ::= DCLLIST:dl LKEY SENTLIST:sl RKEY    {: RESULT="{\n"+dl+sl+"\n}"; :}
+
+MAIN ::= BLQ:b END                          {: RESULT="public void main (String[] args)"+b; :}
+
+DCLLIST ::= LAMBDA                          {: RESULT="\n"; :}
+    | DCLLIST:dl DCL:d                      {: RESULT=d+"\n"+dcl; :}
+
+SENTLIST ::= SENT:s                         {: RESULT=s; :}
+    | SENTLIST:sl SENT:s                    {: RESULT=s+"\n"+sl; :}
+
+//declaraciones                             
+DCL ::= DEFCTE:dc                           {: RESULT=dc; :}
+    | DEFVAR:dv                             {: RESULT=dv; :}
+    | DEFPROC:dp                            {: RESULT=dp; :}
+    | DEFFUN:df                             {: RESULT=df; :}
+
+DEFCTE ::= "const" CTELIST:ctl              {: RESULT=ctl; :}
+
+CTELIST ::= ID "=" SIMPVALUE:sv PCOMA       {: 
+                                                cons.add("#define "+ID+" "+sv);
+                                                RESULT="";
+                                            :}
+    | CTELIST:cl ID "=" SIMPVALUE:sv PCOMA  {: 
+                                                cons.add("#define "+ID+" "+sv+"\n");
+                                                RESULT=cl;
+                                            :}
+
+SIMPVALUE ::= numeric_integer_const         {: RESULT=numeric_integer_const; :}
+    | numeric_real_const                    {: RESULT=numeric_real_const; :}
+    | string_const                          {: RESULT=string_const; :}
+
+DEFVAR ::= "var" DEFVARLIST:dvl PCOMA       {: RESULT=dvl+";"; :}
+
+DEFVARLIST ::= VARLIST:vl PUNTO2 TBAS:t                                     {: RESULT=t+" "+vl+";"; :}
+    | DEFVARLIST:dvl PCOMA VARLIST:vl PUNTO2 TBAS:t                         {: RESULT=t+" "+vl+";\n"+dvl; :}
+
+VARLIST ::= ID                                                              {: RESULT=ID; :}
+    | ID COMA VARLIST:vl                                                    {: RESULT=ID+","+vl; :}
+
+DEFPROC ::= VOID ID FORMAL_PARAMLIST:fp PCOMA BLQ:b PCOMA                   {: RESULT="void"+ID+fp+b; :}
+DEFFUN ::= FUNCT ID FORMAL_PARAMLIST:fp PUNTO2 TBAS:t PCOMA DCLLIST:dl LKEY SENTLIST:sl ID IGUAL EXP:exp RKEY PCOMA     
+                                                           {: 
+                                                                String header=t+ID+fp+"\n{";
+                                                                String body=dl+sl;
+                                                                String res="\nreturn "+exp+";";
+                                                                RESULT=header+body+res+"\n}";
+                                                            :}
+
+FORMAL_PARAMLIST ::= LAMBDA                                                 {: RESULT="()"; :}
+    | LPAR FORMAL_PARAM:fp RPAR                                             {: RESULT="("+fp+")"; :}
+
+FORMAL_PARAM ::= VARLIST:vl PUNTO2 TBAS:t                                   {: RESULT=t+" "+vl; :}
+    | VARLIST:vl PUNTO2 TBAS:t PCOMA FORMAL_PARAM:fp                        {: RESULT=t+" "+vl+","+fp; :}
+
+TBAS ::= "INTEGER"                          {: RESULT="int "; :}
+    | "REAL"                                {: RESULT="float "; :}
+
+//sentencias
+SENT ::= ASIG:a PCOMA                       {: RESULT=a+";"; :}
+    | PROC_CALL:pc PCOMA                    {: RESULT=pc+";"; :}
+    | IF EXPCOND:ec THEN BLQ:b1 ELSE BLQ:b2 {: RESULT="if("+ec+")"+b1+"else"+b2; :}
+    | WHILE EXPCOND:ec DO BLQ:b             {: RESULT="while("+ec+")"+b; :}
+    | REPEAT BLQ:b UNTIL EXPCOND:ec PCOMA   {: RESULT="do"+b+"while("+ec+");"; :}
+    | FOR ID IGUAL EXP:a INC EXP:b DO BLQ   {:  
+                                                Stting start= ID+IGUAL+a;
+                                                String incr;
+                                                if(INC.compareTO("<")==0)incr="+1";
+                                                else incr="-1";
+                                                String end= ID+INC+incr;
+                                                String gap=id+"="+id+incr;
+                                                RESULT=FOR+"("+start+";"+end+";"+gap+")"; 
+                                            :}
+    | RETURN EXP:exp                        {: RESULT="return "+exp+";"; :}
+
+INC ::= TO                                  {: RESULT="<"; :}
+    | DOWNTO                                {: RESULT=">"; :}
+
+ASIG ::= ID IGUAL EXP:exp                   {: RESULT=ID+"="+exp; :}
+ID := ID                                    {: RESULT=ID; :}
+
+EXP ::= EXP.a OP EXP:b                      {: RESULT=a+OP+b; :}
+    | FACTOR:f                              {: RESULT=f; :}
+
+OP ::= OPARIT:op                            {: RESULT=op; :}
+OPARIT ::= SUMA                             {: RESULT=" + "; :}
+    | RESTA                                 {: RESULT=" - "; :}
+    | PRODUCTO                              {: RESULT=" * "; :}
+    | DIVISION                              {: RESULT=" / "; :}
+    | MODULO                                {: RESULT=" % "; :}
+
+FACTOR ::= SIMPVALUE:sv                     {: RESULT = sv; :}
+    | LPAR EXP:exp RPAR                     {: RESULT= LPAR+exp+RPAR;  :}
+    | ID SUBPPARAMLIST:spl                  {: RESULT=ID+spl; :}
+
+SUBPPARAMLIST ::= LAMBDA                    {: RESULT="();"; :}
+    | LPAR EXPLIST:expl RPAR                {: RESULT="("+expl+")"; :}
+
+EXPLIST ::= EXP:exp                         {: RESULT=exp; :}
+    | EXP:exp COMA EXPLIST:expl             {: RESULT=exp+", "+expl; :}
+
+PROC_CALL ::= ID SUBPPARAMLIST:spl          {: RESULT=ID+spl; :}
+
+//comparaciones
+EXPCOND ::= EXPCOND:a OPLOG:op EXPCOND:b    {: RESULT=a+op+b; :}
+    | FACTORCOND:fc                         {: RESULT=fc; :}
+
+OPLOG ::= OR                                {: RESULT=" || "; :}
+    | AND                                   {: RESULT=" && "; :}
+
+FACTORCOND ::= EXP:a OPCOMP:op EXP:b        {: RESULT=a+op+b; :}
+    | LPAR EXP:exp RPAR                     {: RESULT="("+exp+")"; :}
+    | NOT FACTORCOND:fc                     {: RESULT="!("+fc+")"; :}
+
+OPCOMP ::= MENOR                            {: RESULT=" < "; :}
+    | MAYOR                                 {: RESULT=" > "; :}
+    | MENOR_IGUAL                           {: RESULT=" <= "; :}
+    | MAYOR_IGUAL                           {: RESULT=" >= "; :}
+    | IGUAL_QUE                             {: RESULT=" == "; :}
