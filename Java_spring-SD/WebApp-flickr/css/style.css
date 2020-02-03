@@ -1,0 +1,49 @@
+#username {
+	position: relative;
+  padding-right: 30px;
+	left: 100px;
+}
+
+img {
+	margin: 10px;
+}
+
+#realname{
+	left: 200px;
+	position: absolute;
+	width: 300px;
+	padding-right: 30px;
+}
+
+#flicr_images{
+	margin-top: 20px;
+}
+
+#family_friends {
+	margin-top: 20px;
+}
+
+#contactList{
+	float:	right;
+}
+
+#options {
+	width: 620px;
+	display: flex;
+	margin: 0 auto;
+}
+
+button{
+	height: 30px;
+	width: 	150px;
+  left: 50%;
+}
+
+.container{
+	position:relative;
+}
+
+.centered {
+  position: relative;
+  color : blue;
+}

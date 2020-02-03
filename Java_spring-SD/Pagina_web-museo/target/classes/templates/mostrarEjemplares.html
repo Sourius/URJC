@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Ejemplares</title>
+		<link rel="stylesheet" th:href="@{/css/estiloModificar.css}"/>
+	</head>
+	
+	<body>
+		<div id="ejemplares">
+			<table>
+				<tr th:each="ejemplar : ${ejemplares}">
+					<td>
+						<form action="/modificarEjemplar">
+							<label>Modelo: </label><br>
+							<input type="text" name="model" th:value=${ejemplar.getModel()} required><br>
+							<label>Año y Ciudad de acuñación: </label><br>
+							<input name="year" pattern="[0-9]{4}" th:value=${ejemplar.getYear()} required>
+							<input type="text" name="city" th:value=${ejemplar.getCity()} required><br>
+							<label>Fecha de Adquisición: </label><br>
+							<input type="date"  name="date" th:value=${ejemplar.getDate()} required><br>		
+							<label>Estado de conservación:</label><br>
+							<input type="text" name="state" th:value=${ejemplar.getState()} required><br>
+							<label>Proveedor: </label><br>
+							<input type="text" name="provider" th:value=${ejemplar.getProvider()} required><br>
+							<input type="submit" value="Modificar">
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id ="insertar">	
+			<form action="/insertarEjemplar">
+				<input type="submit" value="Añadir Ejemplar">
+			</form>
+		</div>
+		<div id="volver">
+			<a href = "/">Volver</a>
+		</div>
+	</body>
+</html>

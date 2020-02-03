@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Museo</title>
+		<link rel="stylesheet" th:href="@{/css/estiloMuseo.css}"/>
+	</head>
+	
+	<body>
+		<div id="museo">
+			<table>
+				<tr th:each="ejemplar : ${ejemplares}">
+					<td>
+			 		<img th:src="@{/imagenes/${ejemplar.getImagen()}.jpg}"></img>
+					</td>
+					<td>
+						<label>Modelo: </label><span th:text="${ejemplar.getModel()}"></span><br>
+						<label>Proveedor: </label><span th:text="${ejemplar.getProvider()}"></span><br>
+						<label>Año y Ciudad de Acuñación: </label><span th:text="${ejemplar.getYear()}+' '+${ejemplar.getCity()}"></span><br>
+						<label>Fecha de adquisición: </label><span th:text="${ejemplar.getDate()}"></span><br>
+						<label>Estado: </label><span th:text="${ejemplar.getState()}"></span><br>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<table>
+			<tr>
+				<td>
+					<div id ="insertar">
+						<form action="/insertarEjemplar">
+							<input type="submit" value="Añadir Ejemplar">
+						</form>
+						
+						<form action="/insertarProveedor">
+							<input type="submit" value="Añadir Proveedor">
+						</form>
+						
+						<form action="/insertarMoneda">
+							<input type="submit" value="Añadir Moneda">
+						</form>
+					</div>
+				</td>
+				
+				<td>
+					<div id ="ver">
+						<form action="/verEjemplar">
+							<input type="submit" value="Ver lista de ejemplares">
+						</form>
+						
+						<form action="/verProveedor">
+							<input type="submit" value="Ver lista de proveedores">
+						</form>
+						
+						<form action="/verMoneda">
+							<input type="submit" value="Ver lista de monedas">
+						</form>
+					</div>
+				</td>
+				
+			</tr>
+		</table>
+	</body>
+</html>

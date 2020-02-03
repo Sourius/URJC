@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Flickr </title>
+		
+		<!-- Scripts -->
+		<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+		<script src="credencialesFlickr.js"></script>
+		<script src="js/flickr.js"></script>
+		
+		
+		<!-- Hoja de estilos -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		
+		<!--- Caracteres utilizados -->
+		<meta charset="UTF-8">
+	</head>
+	
+	<body>
+		<!--Aviso si no esta activado el javascript o si el navegador no lo soporta-->
+		<noscript>Esta pagina necesita javscript!</noscript>
+		
+		<!--Opciones-->
+		<div id="options">
+			<button id="home">Home</button>
+			<button id="family_and_friends">Amigos y Familia</button>
+			<button id="all">Todos</button>
+			<button id="selectContact">Seleccionar Contacto</button>
+		</div>
+		<div id="contactList"></div>
+		<div id="flicr_images">
+			<!--Tablas para mostrar las fotos-->
+			<table id="mainPage"></table> <!-- mostrar las fotos recientes: Pagina principal -->
+			<table id="family_friends"></table> <!-- mostrar fotos de familia y amigos -->
+			<table id="contacts"></table> <!-- mostrar fotos de todos los contactos -->
+			<table id="one_contact"></table> <!-- mostrar las fotos del contacto seleccionado -->
+		</div>
+	</body>
+</html>

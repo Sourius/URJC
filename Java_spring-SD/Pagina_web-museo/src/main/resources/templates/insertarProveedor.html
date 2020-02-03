@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insertar Proveedor</title>
+		<link rel="stylesheet" th:href="@{/css/estiloInsertar.css}"/>
+	</head>
+	
+	<body>
+		<h1>Insertar Proveedor</h1>
+		<form action="/proveedor">
+			<label>NIF: </label><br>
+			<input type="text" name="nif" required><br>
+			<label>Nombre: </label><br>
+			<input type="text" name="name" required><br>
+			<label>Dirección Postal: </label><br>
+			<input type="text" name="address" required><br>
+			<label>Correo: </label><br>
+			<input type="email" name="email" required><br>		
+			<label>Telefóno de Contacto: </label><br>
+			<input type="tel" pattern="[0-9]{9}" name="number" required><br>
+			<input type="submit" value="Guardar">
+		</form>
+	</body>
+</html>

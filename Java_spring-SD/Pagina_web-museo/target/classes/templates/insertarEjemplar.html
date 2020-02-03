@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insertar Ejemplar</title>
+		<link rel="stylesheet" th:href="@{/css/estiloInsertar.css}"/>
+	</head>
+	
+	<body>
+		<h1>Insertar Ejemplar</h1>
+		<form action="/ejemplar">
+			<label>Modelo: </label><br>
+			<input type="text" name="model" required><br>
+			<br><label>Año (Ej: 2019) y Ciudad de Acuñación: </label>
+			<br>
+			<input name="year" pattern="[0-9]{4}" required>
+			<input type="text" name="city" required>
+			<br>
+			<br><label>Fecha de Adquisición: </label><br>
+			<input type="date"  name="date" required><br>		
+			<br><label>Estado de conservación: </label>
+			<br><input type="text" name="state" required><br>
+			<br><label>Proveedor: (nie/nif) </label><br>
+			<input type="text" name="provider" required><br>
+			<br>
+			<input type="submit" value="Guardar">
+		</form>
+	</body>
+</html>
