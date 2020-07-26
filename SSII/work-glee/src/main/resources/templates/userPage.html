@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Demandante</title>
+        <link rel="stylesheet" href="/css/myStyle.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/user_script.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="menu-bar">
+                    <div class="drop-down-menu">
+                        <ul class="dd-menu-items">
+                            <li> <a class="active" id="dd-item-1" href="#">Menu</a></li>
+                            <li> <a id="dd-item-2" href="">Consultar Ofertas</a></li>
+                            <li> <a id="dd-item-3" href="">Buscar Ofertas</a></li>
+                            <li> <a id="dd-logout" href="/logout">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                    <ul>
+                        <li><div class="menu-icon"></div></li>
+                        <li><div class="menu-icon"></div></li>
+                        <li><div class="menu-icon"></div></li>
+                    </ul>
+                </div>
+                <label class="logo">Work-Gle</label>
+                <ul class="menu-items">
+                    <li> <a class="active" id="menu-item-1" href="/">Home</a></li>
+                    <li> <a id="menu-item-2" href="">Consultar Ofertas</a></li>
+                    <li> <a id="menu-item-3" href="">Buscar Ofertas</a></li>
+                    <li> <a id="logout" href="/logout">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container content">
+            <div class="container" id="userInfo">
+                <h2><label>Demandante</label></h2>
+            </div>
+
+            <div class="container" id="show-offers">
+                <h2><label>Ofertas</label></h2>
+                <table id="offers-table">
+                    <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Descripción</th>
+                        <th>Salario</th>
+                        <th>Dirección</th>
+                        <th>Fecha limite</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="offer: ${offers}">
+                        <td th:text="${offer.getTitle()}" />
+                        <td th:text="${offer.getDescription()}" />
+                        <td th:text="${offer.getIncome()}" />
+                        <td th:text="${offer.getAddress()}" />
+                        <td th:text="${offer.getDueDate()}" />
+                        <td>
+                            <form th:action="@{/apply/{id}(id=${offer.getOfferId()})}" method="post">
+                                <input type="submit" value="Inscribir "/>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container" id="show-inscriptions">
+                <h2><label>Registros</label></h2>
+                <table id="inscriptions-table">
+                    <thead>
+                        <tr>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

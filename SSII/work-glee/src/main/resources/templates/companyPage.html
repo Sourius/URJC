@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Empresa</title>
+        <link rel="stylesheet" href="/css/myStyle.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/company_script.js" th:src="@{/js/company_script.js}"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="menu-bar">
+                    <div class="drop-down-menu">
+                        <ul class="dd-menu-items">
+                            <li> <a class="active" id="dd-item-1" href="#">Menu</a></li>
+                            <li> <a id="dd-item-2" href="javascript:showOffers()">Consultar Ofertas</a></li>
+                            <li> <a id="dd-item-3" href="javascript:createNewOffer()">Crear Oferta Nueva</a></li>
+                            <li> <a id="dd-logout" href="/logout">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                    <ul>
+                        <li><div class="menu-icon"></div></li>
+                        <li><div class="menu-icon"></div></li>
+                        <li><div class="menu-icon"></div></li>
+                    </ul>
+                </div>
+                <label class="logo">Work-Gle</label>
+                <ul class="menu-items">
+                    <li> <a class="active" id="menu-item-1" href="/">Home</a></li>
+                    <li> <a id="menu-item-2" href="javascript:showOffers()">Consultar Ofertas</a></li>
+                    <li> <a id="menu-item-3" href="javascript:createNewOffer()">Crear Oferta Nueva</a></li>
+                    <li> <a id="logout" href="/logout">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="container content">
+            <div class="container" id="userInfo"></div>
+
+            <div class="container" id="show-offers">
+                <h2><label>Ofertas</label></h2>
+                <table id="offers-table">
+                    <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Descripción</th>
+                            <th>Salario</th>
+                            <th>Dirección</th>
+                            <th>Fecha limite</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="container" id="create-offers">
+                <h2>Crear nueva oferta</h2>
+
+                <form class="input-form" id="new-offer-form" action="javascript:addOffer()" method="post">
+                    <label>Titulo</label>
+                    <input type="text" id="title" name="title" placeholder="Introduce el titulo de la oferta"/>
+                    <label >Descripción</label>
+                    <input type="text" id="description" name="description" placeholder="Breve descripcion del cargo"/>
+                    <label >Salario</label>
+                    <input type="text" id="income" name="income" placeholder="salario" class="form-control"/>
+                    <label>Ciudad</label>
+                    <input type="text" id="city" name="city" placeholder="Ciudad" />
+                    <label>Provincia</label>
+                    <input type="text" id="province" name="province" placeholder="Provincia" />
+                    <label >Fecha Limite</label>
+                    <input type="date" id="due_date" name="due_date" placeholder="%d/%m/%Y"/>
+                    <div class="ck-box">
+                        <label>Activar Oferta </label>
+                        <input type="checkbox" id="visible" name="visible">
+                    </div>
+                    <div>
+                        <input class="edit-btn" type="submit" value="Crear Oferta"/>
+                        <input type="button" class="return-btn" value="Volver" onclick="showOffers()"/>
+                    </div>
+
+                </form>
+            </div>
+            <div class="container" id="edit-offer"></div>
+        </div>
+
+        <script  th:inline="javascript">
+            /*<![CDATA[*/
+            var userId = /*[[${id}]]*/ '';
+            console.log(userId);
+            /*]]>*/
+        </script>
+    </body>
+</html>

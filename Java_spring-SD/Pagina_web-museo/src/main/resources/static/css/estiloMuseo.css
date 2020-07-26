@@ -1,0 +1,21 @@
+img{
+	height:100px;
+	width: 100px;
+}
+
+#insertar{
+	float: left;
+}
+
+#ver {
+	float: left;
+}
+
+label{
+	font-weight: bold;
+}
+
+table tr{
+	margin: 10px;
+	float: left;
+}
