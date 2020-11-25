@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin</title>
+        <link rel="stylesheet" href="/css/myStyle.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/admin_script.js"></script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <div class="menu-bar">
+                    <div class="drop-down-menu">
+                        <ul class="dd-menu-items">
+                            <li> <a class="active" id="dd-item-1" href="#">Menu</a></li>
+                            <li> <a id="dd-item-2" href="javascript:showBottomOffers()">Ofertas vacias</a></li>
+                            <li> <a id="dd-item-3" href="javascript:showOffers()">Ofertas</a></li>
+                            <li> <a id="dd-item-4" href="javascript:showUsers()">Usuarios</a></li>
+                            <li> <a id="dd-logout" href="/logout">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                    <ul>
+                        <li><div class="menu-icon"></div></li>
+                        <li><div class="menu-icon"></div></li>
+                        <li><div class="menu-icon"></div></li>
+                    </ul>
+                </div>
+                <label class="logo">Work-Gle</label>
+                <ul class="menu-items">
+                    <li> <a class="active" id="menu-item-1" href="/">Home</a></li>
+                    <li> <a id="menu-item-2" href="javascript:showBottomOffers()">Ofertas vacias</a></li>
+                    <li> <a id="menu-item-3" href="javascript:showOffers()">Ofertas</a></li>
+                    <li> <a id="menu-item-4" href="javascript:showUsers()">Usuarios</a></li>
+                    <li> <a id="logout" href="/logout">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="container content">
+            <div class="container a-info" id="custom-offers">
+                <table id="custom-offers-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="container a-info" id="offers">
+                <table id="offers-table">
+                    <thead>
+                        <th>Empresa</th>
+                        <th>Título</th>
+                        <th>Usuarios Inscritos</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="container a-info" id="users">
+                <table id="users-table">
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Ciudad</th>
+                        <th>Provincia</th>
+                        <th>Ofertas Inscritas</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="container a-info" id="bottom-offers">
+                <table id="bottom-offers-table">
+                    <thead>
+                        <th>Empresa</th>
+                        <th>Título</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="container a-info" id="offer">
+                <table id="offer-table">
+                    <thead>
+                        <th>Título</th>
+                        <th>Descripción</th>
+                        <th>Salario</th>
+                        <th>Dirección</th>
+                        <th>Fecha Limite</th>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

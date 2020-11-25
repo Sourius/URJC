@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Proveedores</title>
+		<link rel="stylesheet" th:href="@{/css/estiloModificar.css}"/>
+	</head>
+	
+	<body>
+		<div id="proveedores">
+			<table>
+				<tr th:each="proveedor : ${proveedores}">
+					<td>
+						<form action="/modificarProveedor">
+							<label>NIF/NIE: </label><br>
+							<input type="text" name="nif" th:value=${proveedor.getNIF()} required><br>
+							<label>Nombre: </label><br>
+							<input type="text" name="name" th:value=${proveedor.getName()} required><br>
+							<label>Dirección: </label><br>
+							<input type="text" name="address" th:value=${proveedor.getAddress()} required><br>
+							<label>Correo: </label><br>
+							<input type="email" name="email" th:value=${proveedor.getEmail()} required><br>
+							<label>Numero: </label><br>
+							<input type="tel" name="number" pattern="[0-9]{9}" th:value=${proveedor.getNumber()} required><br>
+							<input type="submit" value="Modificar">
+						</form>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<div id ="insertar">	
+			<form action="/insertarProveedor">
+				<input type="submit" value="Añadir Proveedor">
+			</form>
+		</div>
+		<div id="volver">
+			<a href = "/">Volver</a>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+.data
+	matriz: .word 	1,2,3,4,5,6,7,8,9,1,2,3
+	# 1 2 3 4       	1 2 3			34 44 54
+	# 5 6 7 8     	X	4 5 6		= 	86 
+	# 9 1 2 3		7 8 9			
+	#			1 2 3			
+	matriz2: .word 	1,2,3,4,5,6,7,8,9,1,2,3			
+				
+	fila: .word 3
+	columna: .word 4
+	sol: .space 36
+.text
+	lw $t0,fila
+	lw $t1, columna
+	la $t2, matriz
+	la $t3, matriz2
+	la $t4, sol
+	lw $s1, fila
+	add $t8,$0,$0 #guarda la suma de productos de fila*columna
+	
+	bucle:	
+		# cargar numeros
+		lw $t5, ($t2) 
+		lw $t6, ($t3)
+		#multiplicar
+		mult $t5,$t6
+		# accumular
+		mflo $t7
+		add $t8,$t7,$t8
+		# actualizar numeros
+		add $t2,$t2,4
+		#calcular indice de columna 
+		add $t3,$t3,12
+		sub $t1,$t1,1
+		
+	# recorremos los elemetos de la primera fila de matriz 1 y de la primera columna de matriz2	
+	bgt $t1,0,bucle
+	
+	sw $t8,($t4) # guardamos el resultado de fila * columna
+	add $t4,$t4,4
+
+	# cambiamos de fila y columna	
+	mult $t0, $t1# (numero de filas * numero de columnas - numero de columnas) del segundo
+	mflo $t9 # nfilas del primero = las columnas del segundo y viceversa
+	sub $t3,$t3,$t9
+	sub $t3,$t3,4
+	lw $t1, columna
+	sub $s1,$s1,1  #actualizamos fila
+	add $5, $0,0
+	add $t6, $t6, 0
+	bgt $s1,0, bucle
+	
+	#finalizar
+	li $v0,10
+	syscall

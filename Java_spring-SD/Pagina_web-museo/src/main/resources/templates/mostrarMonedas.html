@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Monedas</title>
+		<link rel="stylesheet" th:href="@{/css/estiloModificar.css}"/>
+	</head>
+	
+	<body>
+		<div id="monedas">
+			<table>
+				<tr th:each="moneda : ${monedas}">
+					<td> 
+						<form action="/modificarMoneda">
+							<label>Modelo: </label><br>
+							<input type="text" name="model" th:value=${moneda.getModel()} required><br>
+							<label>Valor Facial: </label><br>
+							<input type="text" name="face" th:value=${moneda.getFace()} required><br>
+							<label>Valor: (euro, dolar, ...) </label><br>
+							<input type="text" name="value" th:value=${moneda.getValue()} required><br>
+							<label>Peso: </label><br>
+							<input type="number" step="0.01" name="weight" th:value=${moneda.getWeight()} required><br>
+							<label>Tamaño: </label><br>
+							<input type="number" step="0.01" name="diameter" th:value=${moneda.getDiameter()} required><br>
+							<label>Componentes: </label><br>
+							<input type="text" name="components" th:value=${moneda.getComponents()} required><br>
+							<label>Descripción: </label><br>
+							<textarea name="desc" th:inline="text" required>[[${moneda.getDesc()}]]</textarea><br>
+							<input type="submit" value="Modificar">
+						</form>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		
+		<div id ="insertar">
+			<form action="/insertarMoneda">
+				<input type="submit" value="Añadir Moneda">
+			</form>
+		</div>
+		<div id="volver">
+			<a href = "/">Volver</a>
+		</div>
+	</body>
+</html>

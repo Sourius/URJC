@@ -1,0 +1,23 @@
+.data 
+	cad1: .asciiz "Entra el primer operando: "
+	cad2: .asciiz "Entra el segundo operando: "
+.text
+	la $a0, cad1
+	li $v0, 4
+	syscall
+	li $v0,5
+	syscall
+	add $t1, $v0, $0
+	
+	la $a0, cad2
+	li $v0,4
+	syscall
+	li $v0,5
+	syscall
+	add $t2, $v0, $0
+	
+	mult $t1, $t2
+	mflo $t0
+	
+	li $v0, 10
+	syscall

@@ -1,0 +1,16 @@
+# separar Digitos #
+.data 
+	sol: .space 20
+	num: .word 12345
+.text
+	
+	la $t0, num
+	la $t1, sol
+	separar: 
+	 	
+	
+	
+	
+
+	li $v0,10
+	syscall

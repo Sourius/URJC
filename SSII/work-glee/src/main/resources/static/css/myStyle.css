@@ -1,0 +1,271 @@
+*{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	list-style: none;
+	box-sizing: border-box;
+}
+
+nav{
+	background:#0082e6;
+	height:80px;
+	width:100%;
+}
+
+.logo{
+	color:white;
+	font-size:35px;
+	padding:20px;
+	font-weight:bold;
+	display: inline-flex;
+}
+
+.menu-items{
+	float: right;
+	margin-right: 20px;
+}
+
+.menu-items li{
+	display: inline-block;
+	line-height: 80px;
+	margin: 0 5px;
+}
+
+.menu-items li a{
+	color: white;
+	font-size: 17px;
+	padding: 7px 14px;
+	border-radius: 3px;
+	text-transform: uppercase;
+}
+
+.menu-bar{
+	float: right;
+	margin: 20px;
+	display: none;
+	cursos: pointer;
+}
+
+.menu-icon{
+	width: 35px;
+	height: 5px;
+	background-color: white;
+	margin: 6px 0;
+}
+
+nav a.active{
+	background: #1b9bff;
+	transition: .5s;
+}
+
+nav a:hover{
+	background: #1b9bff;
+    transition: .5s;
+}
+
+.content{
+	margin: auto;
+	padding: 10px;
+	display: flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+}
+
+#userInfo{
+	max-width: 200px;
+	float: left;
+	margin: 20px;
+}
+
+#userInfo a{
+	display:flex;
+}
+
+#userInfo h2 label{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#show-offers{
+	margin: 20px;
+	float: left;
+	display: inline-flex;
+	flex-direction: column;
+}
+
+#show-offers h2 label{
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#offers-table{
+	border-collapse: collapse;
+	display: flex;
+}
+
+#offers-table th{
+	display: flex;
+	border: 1px solid;
+	padding: 5px;
+}
+
+#offers-table tbody{
+	display:flex;
+	flex-wrap: wrap;
+}
+
+#offers-table tr{
+	display: flex;
+	flex-direction: column;
+}
+
+#offers-table td{
+	display: flex;
+    border: 1px solid;
+    padding: 5px;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#create-offers{
+	display: inline-flex;
+	margin: 20px;
+	flex-direction:column;
+}
+
+#edit-offer{
+	display: inline-flex;
+	margin: 20px;
+	flex-direction:column;
+}
+
+#create-offers form{
+	display: inline-flex;
+	flex-direction:column;
+}
+
+#edit-offer form{
+	display: inline-flex;
+	flex-direction:column;
+}
+
+#create-offers h2 label{
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#edit-offer h2 label{
+	margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#edit-offer form label{
+	margin-top: 10px;
+}
+
+#create-offers form label{
+	margin-top: 10px;
+}
+
+.edit-btn{
+	padding: 5px;
+	float: left;
+	width: 100px;
+}
+
+.delete-btn{
+	padding: 5px;
+    margin-left: 20px;
+    width: 100px;
+}
+
+.return-btn{
+	padding: 5px;
+    margin-left: 20px;
+    width: 100px;
+}
+
+.ck-box{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.a-info{
+	margin: 20px;
+	float: left;
+	display: inline-flex;
+	flex-direction: column;
+}
+
+.a-info table{
+	border-collapse: collapse;
+	display: flex;
+}
+
+.a-info table tbody{
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.a-info table tr{
+	display: flex;
+	flex-direction: column;
+}
+
+.a-info table td{
+	display: flex;
+    border: 1px solid;
+    padding: 5px;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.a-info table th{
+	display: flex;
+	border: 1px solid;
+	padding: 5px;
+}
+
+.dd-menu-items{
+	display:none;
+}
+
+.dd-menu-items li{
+	display: inline-block;
+	line-height: 80px;
+	margin: 0 5px;
+}
+
+.dd-menu-items li a{
+	color: white;
+	font-size: 17px;
+	padding: 7px 14px;
+	border-radius: 3px;
+	text-transform: uppercase;
+}
+
+
+
+@media (max-width:1000px){
+	.menu-items{
+		display: none;
+	}
+
+	.menu-bar{
+		display: inline-flex;
+	}
+
+	.dd-menu-items{
+		background:#0082e6;
+	}
+
+	.menu-bar:hover .dd-menu-items{
+    	display:block;
+    }
+
+    .dd-menu-items li{
+    	line-height:35px;
+    	display:block;
+    }
+}

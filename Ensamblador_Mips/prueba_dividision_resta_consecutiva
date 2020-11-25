@@ -1,0 +1,26 @@
+.data
+	num: .asciiz "Entra el numerador: "
+	den: .asciiz "Entra el denominador: "
+.text
+	la $a0, num
+	li $v0, 4
+	syscall
+	li $v0,5
+	syscall
+	add $t1, $v0, $0
+	
+	la $a0, den
+	li $v0, 4
+	syscall
+	li $v0,5
+	syscall
+	add $t2, $v0, $0
+	li $t0, 0
+	
+	bucle:
+		sub $t1, $t1, $t2
+		add $t0,$t0,1
+		bge $t1,$t2, bucle
+
+	li $v0, 10
+	syscall

@@ -1,0 +1,28 @@
+.data
+	matriz: .word 	1,2,3,2,
+			4,5,6,1,
+			7,8,9,0	
+	fila: .word 3
+	columna: .word 4
+	sol: .space 3
+.text
+	lw $t0, fila
+	lw $t1, columna
+	la $t3, matriz
+	la $t4, sol
+	li $t2, 4
+	bucle:
+		lw $t5, ($t3)
+		sw $t5, ($t4)
+		add $t4,$t4,$t2
+		mult $t2, $t1
+		mflo $t6
+		add $t3,$t3, $t6
+		add $t3,$t3,4
+		sub $t0,$t0,1
+		
+	beq  $t0,0,end
+	b bucle
+	end:
+		li $v0,10
+		syscall

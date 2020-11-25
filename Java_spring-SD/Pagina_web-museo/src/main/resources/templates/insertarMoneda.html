@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insertar Moneda</title>
+		<link rel="stylesheet" th:href="@{/css/estiloInsertar.css}"/>
+	</head>
+	
+	<body>
+		<h1>Insertar Moneda</h1>
+		<form action="/moneda">
+			<label>Modelo: </label><br>
+			<input type="text" name="model" required><br>
+			<label>Valor Facial:</label><br>
+			<input type="text" name="face" required><br>
+			<label>Valor Unitario(euro, dolar): </label><br>
+			<input type="text" name="value" required><br>
+			<label>Tamaño: </label><br>
+			<input type="number" step="0.01" name="diameter" required><br>
+			<label>Peso(gramos): </label><br>
+			<input type="number" step="0.01" name="weight" required><br>		
+			<label>Composición: cada elemento separado con ,</label><br>
+			<input type="text" name="components" required><br>
+			<label>Descripción: </label><br>
+			<textarea name="desc" required></textarea><br>
+			<input type="submit" value="Guardar">
+		</form>
+	</body>
+</html>
